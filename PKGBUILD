@@ -11,7 +11,7 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.6.6
+pkgver=4.6.7
 pkgrel=2
 arch=(x86_64)
 url="http://www.samba.org"
@@ -19,12 +19,12 @@ license=('GPL3')
 makedepends=('python2' 'docbook-xsl' 'pkg-config' 'libbsd' 'db' 'popt' 'libcups' 
              'readline' 'tevent' 'acl' 'libldap' 'libcap' 'ldb>=1.1.15' 'krb5' 'pam' 
              'gamin' 'gnutls>=2.4.1' 'talloc' 'tdb' 'dbus' 'libaio' 'perl-parse-yapp')
-source=(https://download.samba.org/pub/samba/stable/${pkgbase}-${pkgver}.tar.gz
+source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.logrotate
         samba.pam
         samba.conf.d
         samba.conf)
-md5sums=('04493bbe8d71e52393dffdbba301697d'
+md5sums=('c6ee5c766016d59908c8fb672fbbd445'
          '5697da77590ec092cc8a883bae06093c'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
@@ -82,7 +82,8 @@ _samba4_auth_modules=auth_unix,auth_wbc,auth_server,auth_netlogond,auth_script,a
               --with-pammodulesdir=/usr/lib/security \
               --bundled-libraries=!tdb,!talloc,!pytalloc-util,!tevent,!popt,!ldb,!pyldb-util \
               --with-shared-modules=${_samba4_idmap_modules},${_samba4_pdb_modules},${_samba4_auth_modules} \
-              --disable-rpath-install
+              --disable-rpath-install \
+              --without-systemd
 
               # Add this to the options once it's working...
                #--with-system-mitkrb5 /opt/heimdal
