@@ -11,7 +11,7 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.6.7
+pkgver=4.7.0
 pkgrel=2
 arch=(x86_64)
 url="http://www.samba.org"
@@ -24,7 +24,7 @@ source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.pam
         samba.conf.d
         samba.conf)
-md5sums=('c6ee5c766016d59908c8fb672fbbd445'
+md5sums=('cf5eaf34f510e3d5643c0dcfd49fcc40'
          '5697da77590ec092cc8a883bae06093c'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
@@ -215,7 +215,6 @@ sys.path.insert(0, '/usr/lib/python${_pyver}/site-packages')" \
   install -D -m644 ${srcdir}/samba.conf ${pkgdir}/usr/lib/tmpfiles.d/samba.conf
   # install sample smb.conf
   install -d -m755 ${pkgdir}/etc/samba
-  install -m644 ${srcdir}/samba-${pkgver}/packaging/LSB/smb.conf ${pkgdir}/etc/samba/smb.conf.default
   
   mkdir -p ${pkgdir}/etc/samba/private
   chmod 700 ${pkgdir}/etc/samba/private
@@ -227,9 +226,6 @@ sys.path.insert(0, '/usr/lib/python${_pyver}/site-packages')" \
   mkdir -p ${pkgdir}/usr/lib/krb5/plugins/libkrb5
   mv  ${pkgdir}/usr/lib/*.so ${pkgdir}/usr/lib/krb5/plugins/libkrb5/
 
-  # fix logrotate
-  sed -i -e 's|log.%m|%m.log|g' ${pkgdir}/etc/samba/smb.conf.default
-  
   # spool directory
   install -d -m1777 ${pkgdir}/var/spool/samba
   
