@@ -11,7 +11,7 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.7.3
+pkgver=4.7.4
 pkgrel=2
 arch=(x86_64)
 url="http://www.samba.org"
@@ -24,7 +24,7 @@ source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.pam
         samba.conf.d
         samba.conf)
-md5sums=('5da8a195094c44a60eb7eb7cf96d6a49'
+md5sums=('427e7feb988603c51f01c97803305fed'
          '5697da77590ec092cc8a883bae06093c'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
