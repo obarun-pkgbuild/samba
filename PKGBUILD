@@ -11,7 +11,7 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.7.5
+pkgver=4.7.6
 pkgrel=2
 arch=(x86_64)
 url="http://www.samba.org"
