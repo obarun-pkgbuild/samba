@@ -11,21 +11,22 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.7.6
-pkgrel=2
+pkgver=4.8.0
+pkgrel=3
 arch=(x86_64)
 url="http://www.samba.org"
 license=('GPL3')
 makedepends=('python2' 'docbook-xsl' 'pkg-config' 'libbsd' 'db' 'popt' 'libcups' 
              'readline' 'tevent' 'acl' 'libldap' 'libcap' 'ldb>=1.1.15' 'krb5' 'pam' 
-             'gamin' 'gnutls>=2.4.1' 'talloc' 'tdb' 'dbus' 'libaio' 'perl-parse-yapp')
+             'gamin' 'gnutls>=2.4.1' 'talloc' 'tdb' 'dbus' 'libaio' 'perl-parse-yapp'
+             'libnsl' 'libtirpc' 'rpcsvc-proto')
 source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.logrotate
         samba.pam
-        samba.conf.d
-        samba.conf)
-md5sums=('3629a134253d6a4a16ebd23a508b0d5b'
-         '5697da77590ec092cc8a883bae06093c'
+        samba.sysconfig
+        samba.tmpfiles)
+md5sums=('3724c1d3d1befe12ecf7bb86ed7e3463'
+         '995621522c6ec9b68c1b858ceed627ed'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
          '49abd7b719e3713a3f75a8a50958e381')
@@ -121,7 +122,7 @@ package_smbclient() {
 pkgdesc="Tools to access a server's filespace and printers via SMB"
 depends=('popt' 'cifs-utils' 'tdb' "libwbclient>=$pkgver" 'ldb'
          'tevent' 'libgcrypt' 'python2' 'talloc' 'readline' 'gnutls' 
-         'libbsd' 'libldap' 'libcups')
+         'libbsd' 'libldap' 'libcups' 'gamin' 'libarchive' 'libnsl')
 
     _smbclient_bins=('smbclient' 'rpcclient' 'smbspool'
                      'smbtree' 'smbcacls' 'smbcquotas' 'smbget' 'net'
@@ -176,7 +177,7 @@ depends=('popt' 'cifs-utils' 'tdb' "libwbclient>=$pkgver" 'ldb'
 package_samba() {
 pkgdesc="SMB Fileserver and AD Domain server"
 depends=('db>=4.7' 'popt' 'libcups' 'libcap>=2.16' 'gamin' 'gnutls>=2.4.1'
-         'talloc' 'ldb' 'libbsd' 'python2' 'iniparser' 'tdb' 'libaio' 'perl-parse-yapp' "smbclient>=$pkgver")
+         'talloc' 'ldb' 'libbsd' 'python2' 'iniparser' 'tdb' 'libaio' 'perl-parse-yapp' "smbclient>=$pkgver" "gpgme")
 backup=(etc/logrotate.d/samba
         etc/pam.d/samba
         etc/samba/smb.conf
@@ -209,11 +210,11 @@ sys.path.insert(0, '/usr/lib/python${_pyver}/site-packages')" \
     done
 
   install -d -m755  ${pkgdir}/etc/conf.d
-  install -m644 ${srcdir}/samba.conf.d ${pkgdir}/etc/conf.d/samba
+  install -m644 ${srcdir}/samba.sysconfig ${pkgdir}/etc/conf.d/samba
  
   # create ephemeral dirs via tmpfiles rather than shipping them in package
-  install -D -m644 ${srcdir}/samba.conf ${pkgdir}/usr/lib/tmpfiles.d/samba.conf
-  # install sample smb.conf
+  install -D -m644 ${srcdir}/samba.tmpfiles ${pkgdir}/usr/lib/tmpfiles.d/samba.conf
+  # create config dir
   install -d -m755 ${pkgdir}/etc/samba
   
   mkdir -p ${pkgdir}/etc/samba/private
