@@ -11,8 +11,8 @@
 
 pkgbase=samba
 pkgname=('libwbclient' 'smbclient' 'samba')
-pkgver=4.8.0
-pkgrel=3
+pkgver=4.8.1
+pkgrel=2
 arch=(x86_64)
 url="http://www.samba.org"
 license=('GPL3')
@@ -26,7 +26,7 @@ source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.sysconfig
         samba.tmpfiles
         bug13335.patch)
-md5sums=('3724c1d3d1befe12ecf7bb86ed7e3463'
+md5sums=('3cdb976a892bc036bfb61eeb97f68450'
          '995621522c6ec9b68c1b858ceed627ed'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
