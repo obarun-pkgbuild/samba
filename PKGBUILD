@@ -24,16 +24,19 @@ source=(http://us1.samba.org/samba/ftp/stable/${pkgbase}-${pkgver}.tar.gz
         samba.logrotate
         samba.pam
         samba.sysconfig
-        samba.tmpfiles)
+        samba.tmpfiles
+        bug13335.patch)
 md5sums=('3724c1d3d1befe12ecf7bb86ed7e3463'
          '995621522c6ec9b68c1b858ceed627ed'
          '96f82c38f3f540b53f3e5144900acf17'
          '6c447748a064d631435dbef0a3dcf32f'
-         '49abd7b719e3713a3f75a8a50958e381')
+         '49abd7b719e3713a3f75a8a50958e381'
+         '86db2a3247a79d195341759da4c27454')
 validpgpkeys=('6DD4217456569BA711566AC7F06E8FDE7B45DAAC') # Eric Vidal
          
 prepare() {
   cd samba-${pkgver}
+  patch -p1 -i ../bug13335.patch
 }
 
 ### UNINSTALL dmapi package before building!!!
